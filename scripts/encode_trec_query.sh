@@ -4,18 +4,24 @@
 # $1: the directory where query and corpus embeddings are stored
 # $2: path to the model
 # $3: year, 2019 / 2020
+export CUDA_VISIBLE_DEVICES=0
 
+EMBEDDING_DIR=$1
+MODEL_DIR=$2
+YEAR=$3
 
-mkdir -p $1
+MODEL_NAME=$4 # dce / mvr / mebert
 
-python -m tevatron.driver.encode \
+mkdir -p $EMBEDDING_DIR
+
+python -m mvdr.models.$MODEL_NAME.encode \
   --output_dir=temp \
-  --model_name_or_path $2/model_msmarco \
+  --model_name_or_path $MODEL_DIR/model_msmarco \
   --fp16 \
   --per_device_eval_batch_size 512 \
   --dataset_name json \
-  --encode_in_path trec/trec_$3_query.jsonl \
-  --encoded_save_path $1/query_emb.trec.$3.pkl \
+  --encode_in_path trec/trec_{$YEAR}_query.jsonl \
+  --encoded_save_path $EMBEDDING_DIR/query_emb.trec.$YEAR.pkl \
   --q_max_len 32 \
   --encode_is_qry \
   --config_name bert-base-uncased

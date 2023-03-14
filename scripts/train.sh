@@ -1,7 +1,10 @@
 #!/bin/bash
 
-python -m torch.distributed.launch --nproc_per_node=8 -m tevatron.driver.train \
-  --output_dir $1/model_msmarco \
+SAVE_DIR=$1
+MODEL_NAME=$2
+
+python -m torch.distributed.launch --nproc_per_node=8 -m mvdr.models.$MODEL_NAME.train \
+  --output_dir $SAVE_DIR/model_msmarco \
   --model_name_or_path bert-base-uncased \
   --save_steps 20000 \
   --dataset_name Tevatron/msmarco-passage \

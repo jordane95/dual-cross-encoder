@@ -5,7 +5,11 @@
 # $2: result save path
 # $3: year, 2019 / 2020
 
-python -m tevatron.faiss_retriever.reducer \
-    --score_dir $1/intermediate_trec_$3 \
-    --query $1/query_emb.trec.$3.pkl \
-    --save_ranking_to $2/rank.txt
+EMBEDDING_DIR=$1
+RESULT_DIR=$2
+YEAR=$3
+
+python -m mvdr.faiss_retriever.reducer \
+    --score_dir $EMBEDDING_DIR/intermediate_trec_$YEAR \
+    --query $EMBEDDING_DIR/query_emb.trec.$YEAR.pkl \
+    --save_ranking_to $RESULT_DIR/rank.txt
