@@ -19,17 +19,17 @@ To replicate DCE where all queries are concatenated with each document rather th
 
 ### Data preprocessing
 
-Prepare the corpus attached with T5 generated queries.
+Attach T5 generated queries to the corpus.
 
 ```bash
-bash generated_d2q.sh
+bash data_scripts/generated_d2q.sh
 
 python data_scripts/add_query_to_corpus.py --doc2query_file doc2query.tsv --save_path data/msmarco_corpus_with_query
 ```
 
 ### Training
 
-> Note: Our models are trained on 8 V100 GPUs with 32GB memory. If you use differenty configurations, please change the parameters in the training scripts accordingly.
+> Note: Our models are trained on 8 V100 GPUs with 32GB memory. If you use different configurations, please change the parameters in the training scripts accordingly.
 
 ```bash
 export MODEL_NAME=dce # mebert / mvr
@@ -40,7 +40,7 @@ bash scripts/train.sh $MODEL_DIR $MODEL_NAME
 
 ### Encoding
 
-The following code encode the corpus into vectors. The corpus is partitioned into 80 shards due to resource limit.
+The following code encode the corpus into vectors. The corpus is partitioned into 80 shards due to memory limit.
 
 ```bash
 export ENCODE_DIR=/path/to/save/encoding

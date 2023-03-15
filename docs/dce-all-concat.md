@@ -5,10 +5,10 @@ The query encoding and search code can be reused.
 
 ### Data preprocessing
 
-Prepare the corpus attached with T5 generated queries.
+Prepare the training data where each document is attached with T5 generated queries.
 
 ```bash
-bash generated_d2q.sh
+bash data_scripts/generated_d2q.sh
 
 python data_scripts/add_query_to_train.py --doc2query_file doc2query.tsv --save_path data/msmarco_train_with_query
 ```
